@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Secure Cookie Demo</title>
+</head>
+<body>
+  <h1>Login with Secure Cookie</h1>
+  <button id="loginBtn">Login</button>
+  <button id="secureBtn">Get Secure Data</button>
+
+  <script>
+    const apiBase = 'http://localhost:4000';
+
+    document.getElementById('loginBtn').onclick = async () => {
+      const res = await fetch(`${apiBase}/login`, {
+        method: 'POST',
+        credentials: 'include' // VERY important to send and receive cookies
+      });
+
+      const data = await res.json();
+      console.log('Login response:', data);
+    };
+
+    document.getElementById('secureBtn').onclick = async () => {
+      const res = await fetch(`${apiBase}/secure-data`, {
+        credentials: 'include'
+      });
+
+      const data = await res.json();
+      console.log('Secure data response:', data);
+    };
+  </script>
+</body>
+</html>
